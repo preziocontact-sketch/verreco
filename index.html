@@ -17,6 +17,11 @@
     .metric { background: #f5f7f4; border-radius: 10px; padding: 1rem; }
     .badge-active { background: #EAF3DE; color: #27500A; font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 600; }
     .badge-pending { background: #FAEEDA; color: #854F0B; font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 600; }
+    .badge-livré { background: #E6F1FB; color: #0C447C; font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 600; }
+    .btn-livrer { background: #EAF3DE; color: #27500A; border: 1px solid #C0DD97; padding: 5px 10px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: 700; white-space: nowrap; }
+    .btn-livrer:hover { background: #C0DD97; }
+    .btn-delivré { background: #f5f7f4; color: #aaa; border: 1px solid #e0e0e0; padding: 5px 10px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: 700; white-space: nowrap; }
+    .btn-delivré:hover { background: #FAEEDA; color: #854F0B; border-color: #FAC775; }
     .input-field { width: 100%; border: 1px solid #ddd; border-radius: 8px; padding: 10px 12px; font-size: 14px; background: #fff; color: #1a1a1a; outline: none; transition: border-color 0.15s; }
     .input-field:focus { border-color: #3B6D11; box-shadow: 0 0 0 3px #EAF3DE; }
     .zone-pill { display: inline-flex; width: 26px; height: 26px; border-radius: 50%; font-size: 11px; font-weight: 700; align-items: center; justify-content: center; flex-shrink: 0; }
@@ -70,12 +75,12 @@
 const { useState } = React;
 
 const mockSubs = [
-  { id:1, name:"Sophie Marchand", address:"12 rue des Lilas", city:"Nîmes", zone:"A", status:"active", joined:"15/01/2025", panier:"M", email:"s.marchand@mail.fr" },
-  { id:2, name:"Jean-Paul Rivière", address:"45 av. Victor Hugo", city:"Nîmes", zone:"A", status:"active", joined:"18/01/2025", panier:"L", email:"jp.riviere@mail.fr" },
-  { id:3, name:"Claire Fontaine", address:"8 impasse du Moulin", city:"Nîmes", zone:"B", status:"active", joined:"22/01/2025", panier:"M", email:"c.fontaine@mail.fr" },
-  { id:4, name:"Marc Tessier", address:"3 rue Gambetta", city:"Caissargues", zone:"B", status:"pending", joined:"01/02/2025", panier:"S", email:"m.tessier@mail.fr" },
-  { id:5, name:"Lucie Bernard", address:"17 chemin des Pins", city:"Marguerittes", zone:"C", status:"active", joined:"05/02/2025", panier:"L", email:"l.bernard@mail.fr" },
-  { id:6, name:"Thomas Klein", address:"29 boulevard de la Paix", city:"Nîmes", zone:"A", status:"active", joined:"10/02/2025", panier:"M", email:"t.klein@mail.fr" },
+  { id:1, name:"Sophie Marchand", address:"12 rue des Lilas", city:"Nîmes", zone:"A", status:"active", joined:"15/01/2025", panier:"M", email:"s.marchand@mail.fr", livre:true },
+  { id:2, name:"Jean-Paul Rivière", address:"45 av. Victor Hugo", city:"Nîmes", zone:"A", status:"active", joined:"18/01/2025", panier:"L", email:"jp.riviere@mail.fr", livre:false },
+  { id:3, name:"Claire Fontaine", address:"8 impasse du Moulin", city:"Nîmes", zone:"B", status:"active", joined:"22/01/2025", panier:"M", email:"c.fontaine@mail.fr", livre:false },
+  { id:4, name:"Marc Tessier", address:"3 rue Gambetta", city:"Caissargues", zone:"B", status:"pending", joined:"01/02/2025", panier:"S", email:"m.tessier@mail.fr", livre:false },
+  { id:5, name:"Lucie Bernard", address:"17 chemin des Pins", city:"Marguerittes", zone:"C", status:"active", joined:"05/02/2025", panier:"L", email:"l.bernard@mail.fr", livre:false },
+  { id:6, name:"Thomas Klein", address:"29 boulevard de la Paix", city:"Nîmes", zone:"A", status:"active", joined:"10/02/2025", panier:"M", email:"t.klein@mail.fr", livre:false },
 ];
 
 const zones = [
@@ -245,11 +250,14 @@ function PublicView() {
 }
 
 function AdminView({ activeTab }) {
-  const [subs] = useState(mockSubs);
+  const [subs, setSubs] = useState(mockSubs);
   const [filterZone, setFilterZone] = useState("all");
   const revenue = subs.filter(s=>s.status==="active").length * 15;
   const activeCount = subs.filter(s=>s.status==="active").length;
+  const livresCount = subs.filter(s=>s.livre).length;
   const filteredSubs = filterZone === "all" ? subs : subs.filter(s=>s.zone===filterZone);
+
+  const toggleLivre = (id) => setSubs(prev => prev.map(s => s.id===id ? {...s, livre:!s.livre} : s));
 
   if (activeTab === "dashboard") return React.createElement('div', { style:{ padding:"1.25rem" } },
     React.createElement('div', { style:{ fontSize:15, fontWeight:700, marginBottom:"1rem" } }, "Vue d'ensemble"),
@@ -257,7 +265,7 @@ function AdminView({ activeTab }) {
       [
         { label:"Abonnés actifs", value: activeCount },
         { label:"Revenus / mois", value: `${revenue}€` },
-        { label:"Paniers livrés", value: subs.length },
+        { label:"Paniers livrés", value: `${livresCount}/${subs.length}` },
         { label:"Zones couvertes", value: "3" },
       ].map((m,i) => React.createElement('div', { key:i, className:"metric" },
         React.createElement('div', { style:{ fontSize:11, color:"#666", marginBottom:4, fontWeight:600, textTransform:"uppercase", letterSpacing:"0.3px" } }, m.label),
@@ -295,7 +303,7 @@ function AdminView({ activeTab }) {
       React.createElement('table', null,
         React.createElement('thead', null,
           React.createElement('tr', null,
-            ["Nom & adresse","Zone","Panier","Statut","Depuis"].map(h => React.createElement('th', { key:h }, h))
+            ["Nom & adresse","Zone","Panier","Statut","Depuis","Panier livré"].map(h => React.createElement('th', { key:h }, h))
           )
         ),
         React.createElement('tbody', null,
@@ -307,7 +315,12 @@ function AdminView({ activeTab }) {
             React.createElement('td', null, React.createElement('span', { className:`zone-pill zone-${s.zone}` }, s.zone)),
             React.createElement('td', { style:{ fontWeight:600 } }, s.panier),
             React.createElement('td', null, React.createElement('span', { className:s.status==="active"?"badge-active":"badge-pending" }, s.status==="active"?"Actif":"En attente")),
-            React.createElement('td', { style:{ color:"#888", fontSize:12 } }, s.joined)
+            React.createElement('td', { style:{ color:"#888", fontSize:12 } }, s.joined),
+            React.createElement('td', null,
+              s.livre
+                ? React.createElement('button', { className:"btn-delivré", onClick:()=>toggleLivre(s.id), title:"Cliquer pour annuler" }, "✓ Livré")
+                : React.createElement('button', { className:"btn-livrer", onClick:()=>toggleLivre(s.id) }, "Livrer")
+            )
           ))
         )
       )

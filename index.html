@@ -3,115 +3,115 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VerRéco — Collecte de verre à domicile</title>
+  <title>Récup-Verre — Verre Notre Avenir, Trions</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f7f4; color: #1a1a1a; min-height: 100vh; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #eef4f8; color: #1a1a1a; min-height: 100vh; }
     #root { max-width: 520px; margin: 0 auto; background: #fff; min-height: 100vh; box-shadow: 0 0 40px rgba(0,0,0,0.08); }
-    .btn-primary { background: #3B6D11; color: #C0DD97; border: none; padding: 11px 22px; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 600; transition: background 0.15s; width: 100%; }
-    .btn-primary:hover { background: #27500A; }
+    .btn-primary { background: #1a5fa8; color: #e8f1fb; border: none; padding: 12px 22px; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 700; transition: background 0.15s; width: 100%; }
+    .btn-primary:hover { background: #134d8a; }
     .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
     .btn-secondary { background: transparent; color: #1a1a1a; border: 1px solid #ddd; padding: 11px 22px; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 500; transition: background 0.15s; }
-    .btn-secondary:hover { background: #f5f7f4; }
-    .card { background: #fff; border: 1px solid #e8ede6; border-radius: 12px; padding: 1.25rem; }
-    .metric { background: #f5f7f4; border-radius: 10px; padding: 1rem; }
-    .badge-active { background: #EAF3DE; color: #27500A; font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 600; }
+    .btn-secondary:hover { background: #f0f4f8; }
+    .card { background: #fff; border: 1px solid #d6e4f0; border-radius: 12px; padding: 1.25rem; }
+    .metric { background: #f0f6fb; border-radius: 10px; padding: 1rem; }
+    .badge-active { background: #e0f0e0; color: #1a6a1a; font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 600; }
     .badge-pending { background: #FAEEDA; color: #854F0B; font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 600; }
-    .badge-livré { background: #E6F1FB; color: #0C447C; font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 600; }
-    .btn-livrer { background: #EAF3DE; color: #27500A; border: 1px solid #C0DD97; padding: 5px 10px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: 700; white-space: nowrap; }
-    .btn-livrer:hover { background: #C0DD97; }
-    .btn-delivré { background: #f5f7f4; color: #aaa; border: 1px solid #e0e0e0; padding: 5px 10px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: 700; white-space: nowrap; }
-    .btn-delivré:hover { background: #FAEEDA; color: #854F0B; border-color: #FAC775; }
+    .btn-livrer { background: #e0f0e0; color: #1a6a1a; border: 1px solid #a0d0a0; padding: 5px 10px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: 700; white-space: nowrap; }
+    .btn-livrer:hover { background: #a0d0a0; }
+    .btn-delivre { background: #f5f7f4; color: #aaa; border: 1px solid #e0e0e0; padding: 5px 10px; border-radius: 6px; cursor: pointer; font-size: 11px; font-weight: 700; white-space: nowrap; }
+    .btn-delivre:hover { background: #FAEEDA; color: #854F0B; border-color: #FAC775; }
     .input-field { width: 100%; border: 1px solid #ddd; border-radius: 8px; padding: 10px 12px; font-size: 14px; background: #fff; color: #1a1a1a; outline: none; transition: border-color 0.15s; }
-    .input-field:focus { border-color: #3B6D11; box-shadow: 0 0 0 3px #EAF3DE; }
+    .input-field:focus { border-color: #1a5fa8; box-shadow: 0 0 0 3px #d6e4f0; }
     .zone-pill { display: inline-flex; width: 26px; height: 26px; border-radius: 50%; font-size: 11px; font-weight: 700; align-items: center; justify-content: center; flex-shrink: 0; }
-    .zone-A { background: #EAF3DE; color: #27500A; }
-    .zone-B { background: #E6F1FB; color: #0C447C; }
+    .zone-A { background: #d6e4f0; color: #134d8a; }
+    .zone-B { background: #e0f0e0; color: #1a6a1a; }
     .zone-C { background: #FAEEDA; color: #633806; }
     .nav-tab { padding: 7px 16px; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 600; border: none; transition: all 0.15s; }
-    .nav-tab.active { background: #3B6D11; color: #C0DD97; }
+    .nav-tab.active { background: #1a5fa8; color: #e8f1fb; }
     .nav-tab.inactive { background: transparent; color: #666; }
-    .nav-tab.inactive:hover { background: #f5f7f4; color: #1a1a1a; }
-    .step-card { border-radius: 10px; padding: 0.85rem; cursor: pointer; transition: all 0.15s; }
-    .step-card.selected { border: 2px solid #3B6D11; background: #EAF3DE; }
-    .step-card.unselected { border: 1px solid #ddd; background: #fff; }
-    .step-card.unselected:hover { border-color: #97C459; }
-    .success-circle { width: 68px; height: 68px; background: #EAF3DE; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem; }
+    .nav-tab.inactive:hover { background: #f0f4f8; color: #1a1a1a; }
+    .success-circle { width: 68px; height: 68px; background: #d6e4f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem; }
     table { width: 100%; border-collapse: collapse; }
     td, th { padding: 10px 12px; text-align: left; font-size: 13px; }
-    th { color: #666; font-weight: 600; border-bottom: 1px solid #e8ede6; font-size: 12px; text-transform: uppercase; letter-spacing: 0.3px; }
+    th { color: #666; font-weight: 600; border-bottom: 1px solid #d6e4f0; font-size: 12px; text-transform: uppercase; letter-spacing: 0.3px; }
     td { border-bottom: 1px solid #f0f0f0; color: #1a1a1a; }
     tr:last-child td { border-bottom: none; }
-    .topbar { display: flex; align-items: center; justify-content: space-between; padding: 0.85rem 1.25rem; border-bottom: 1px solid #e8ede6; background: #fff; position: sticky; top: 0; z-index: 10; }
-    .tabs-bar { display: flex; gap: 4px; background: #f5f7f4; padding: 3px; border-radius: 8px; }
-    .sub-tabs { display: flex; gap: 4px; padding: 0.75rem 1.25rem; border-bottom: 1px solid #e8ede6; overflow-x: auto; }
-    .logo-name { font-weight: 700; font-size: 16px; color: #1a1a1a; display: flex; align-items: center; gap: 8px; }
-    .logo-icon { width: 32px; height: 32px; background: #EAF3DE; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; padding: 0.85rem 1.25rem; border-bottom: 1px solid #d6e4f0; background: #fff; position: sticky; top: 0; z-index: 10; }
+    .tabs-bar { display: flex; gap: 4px; background: #f0f4f8; padding: 3px; border-radius: 8px; }
+    .sub-tabs { display: flex; gap: 4px; padding: 0.75rem 1.25rem; border-bottom: 1px solid #d6e4f0; overflow-x: auto; }
+    .logo-name { font-weight: 800; font-size: 15px; color: #1a5fa8; display: flex; align-items: center; gap: 8px; line-height: 1.2; }
+    .logo-sub { font-size: 9px; font-weight: 500; color: #888; display: block; text-transform: uppercase; letter-spacing: 0.5px; }
+    .logo-icon { width: 36px; height: 36px; background: #1a5fa8; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
     .hero { text-align: center; padding: 2.5rem 1.5rem 1.5rem; }
     .hero-features { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; padding: 0 1.25rem 2rem; }
-    .feature-card { background: #f9faf8; border: 1px solid #e8ede6; border-radius: 10px; padding: 1rem; text-align: center; }
-    .step-badge { width: 28px; height: 28px; border-radius: 50%; background: #3B6D11; display: flex; align-items: center; justify-content: center; color: #C0DD97; font-size: 13px; font-weight: 700; flex-shrink: 0; }
+    .feature-card { background: #f5f9fd; border: 1px solid #d6e4f0; border-radius: 10px; padding: 1rem; text-align: center; }
+    .step-badge { width: 28px; height: 28px; border-radius: 50%; background: #1a5fa8; display: flex; align-items: center; justify-content: center; color: #e8f1fb; font-size: 13px; font-weight: 700; flex-shrink: 0; }
     .form-section { padding: 1.5rem 1.25rem; display: flex; flex-direction: column; gap: 12px; }
     .form-label { font-size: 12px; color: #666; display: block; margin-bottom: 4px; font-weight: 500; }
     .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .panier-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
     .footer-note { text-align: center; font-size: 11px; color: #999; margin-top: 8px; }
     .route-stop { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 1px solid #f0f0f0; }
     .route-stop:last-child { border-bottom: none; }
-    .stop-num { width: 22px; height: 22px; border-radius: 50%; background: #f5f7f4; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #666; flex-shrink: 0; margin-top: 1px; }
+    .stop-num { width: 22px; height: 22px; border-radius: 50%; background: #f0f6fb; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #666; flex-shrink: 0; margin-top: 1px; }
+    .caisse-card { border: 2px solid #1a5fa8; background: #f0f6fb; border-radius: 12px; padding: 1.25rem; display: flex; align-items: center; gap: 1rem; }
+    .caisse-icon { width: 56px; height: 56px; background: #1a5fa8; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .price-tag { background: #1a5fa8; color: #fff; font-size: 22px; font-weight: 800; padding: 6px 14px; border-radius: 8px; display: inline-block; margin-bottom: 4px; }
     @media (max-width: 420px) {
       .hero-features { grid-template-columns: 1fr; }
-      .panier-grid { grid-template-columns: 1fr; }
       .two-col { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 <div id="root"></div>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
 <script>
 const { useState } = React;
 
 const mockSubs = [
-  { id:1, name:"Sophie Marchand", address:"12 rue des Lilas", city:"Nîmes", zone:"A", status:"active", joined:"15/01/2025", panier:"M", email:"s.marchand@mail.fr", livre:true },
-  { id:2, name:"Jean-Paul Rivière", address:"45 av. Victor Hugo", city:"Nîmes", zone:"A", status:"active", joined:"18/01/2025", panier:"L", email:"jp.riviere@mail.fr", livre:false },
-  { id:3, name:"Claire Fontaine", address:"8 impasse du Moulin", city:"Nîmes", zone:"B", status:"active", joined:"22/01/2025", panier:"M", email:"c.fontaine@mail.fr", livre:false },
-  { id:4, name:"Marc Tessier", address:"3 rue Gambetta", city:"Caissargues", zone:"B", status:"pending", joined:"01/02/2025", panier:"S", email:"m.tessier@mail.fr", livre:false },
-  { id:5, name:"Lucie Bernard", address:"17 chemin des Pins", city:"Marguerittes", zone:"C", status:"active", joined:"05/02/2025", panier:"L", email:"l.bernard@mail.fr", livre:false },
-  { id:6, name:"Thomas Klein", address:"29 boulevard de la Paix", city:"Nîmes", zone:"A", status:"active", joined:"10/02/2025", panier:"M", email:"t.klein@mail.fr", livre:false },
+  { id:1, name:"Sophie Marchand", address:"12 rue des Lilas", city:"Toulouse", zone:"A", status:"active", joined:"15/01/2025", email:"s.marchand@mail.fr", livre:true },
+  { id:2, name:"Jean-Paul Rivière", address:"45 av. Victor Hugo", city:"Toulouse", zone:"A", status:"active", joined:"18/01/2025", email:"jp.riviere@mail.fr", livre:false },
+  { id:3, name:"Claire Fontaine", address:"8 impasse du Moulin", city:"Toulouse", zone:"B", status:"active", joined:"22/01/2025", email:"c.fontaine@mail.fr", livre:false },
+  { id:4, name:"Marc Tessier", address:"3 rue Gambetta", city:"Toulouse", zone:"B", status:"pending", joined:"01/02/2025", email:"m.tessier@mail.fr", livre:false },
+  { id:5, name:"Lucie Bernard", address:"17 chemin des Pins", city:"Toulouse", zone:"C", status:"active", joined:"05/02/2025", email:"l.bernard@mail.fr", livre:false },
+  { id:6, name:"Thomas Klein", address:"29 boulevard de la Paix", city:"Toulouse", zone:"A", status:"active", joined:"10/02/2025", email:"t.klein@mail.fr", livre:false },
 ];
 
 const zones = [
-  { id:"A", label:"Zone A — Centre Nîmes", day:"Lundi", color:"zone-A" },
-  { id:"B", label:"Zone B — Sud / Caissargues", day:"Mercredi", color:"zone-B" },
-  { id:"C", label:"Zone C — Est / Marguerittes", day:"Vendredi", color:"zone-C" },
+  { id:"A", label:"Zone A — Nord Toulouse", day:"À définir en fin de mois", color:"zone-A" },
+  { id:"B", label:"Zone B — Centre Toulouse", day:"À définir en fin de mois", color:"zone-B" },
+  { id:"C", label:"Zone C — Sud Toulouse", day:"À définir en fin de mois", color:"zone-C" },
 ];
 
-const paniers = [
-  { id:"S", label:"Petit", desc:"1-2 personnes", bottles:"~15 bouteilles" },
-  { id:"M", label:"Moyen", desc:"3-4 personnes", bottles:"~30 bouteilles" },
-  { id:"L", label:"Grand", desc:"5+ personnes", bottles:"~50 bouteilles" },
-];
-
-function GlassIcon({ size=20, color="#3B6D11" }) {
-  return React.createElement('svg', { width:size, height:size, viewBox:"0 0 24 24", fill:"none", stroke:color, strokeWidth:2, strokeLinecap:"round" },
-    React.createElement('path', { d:"M8 2h8l-1 7H9L8 2z" }),
-    React.createElement('path', { d:"M9 9c0 5 3 9 3 9s3-4 3-9" }),
-    React.createElement('line', { x1:7, y1:2, x2:17, y2:2 })
+function BoxIcon({ size=24, color="#fff" }) {
+  return React.createElement('svg', { width:size, height:size, viewBox:"0 0 24 24", fill:"none", stroke:color, strokeWidth:2, strokeLinecap:"round", strokeLinejoin:"round" },
+    React.createElement('polyline', { points:"21 8 21 21 3 21 3 8" }),
+    React.createElement('rect', { x:1, y:3, width:22, height:5 }),
+    React.createElement('line', { x1:10, y1:12, x2:14, y2:12 })
   );
 }
 
 function CheckIcon() {
-  return React.createElement('svg', { width:30, height:30, viewBox:"0 0 24 24", fill:"none", stroke:"#3B6D11", strokeWidth:2.5, strokeLinecap:"round" },
+  return React.createElement('svg', { width:30, height:30, viewBox:"0 0 24 24", fill:"none", stroke:"#1a5fa8", strokeWidth:2.5, strokeLinecap:"round" },
     React.createElement('polyline', { points:"20 6 9 17 4 12" })
+  );
+}
+
+function Logo() {
+  return React.createElement('div', { className:"logo-name" },
+    React.createElement('div', { className:"logo-icon" }, React.createElement(BoxIcon, { size:20 })),
+    React.createElement('div', null,
+      "Récup-Verre",
+      React.createElement('span', { className:"logo-sub" }, "Verre Notre Avenir, Trions")
+    )
   );
 }
 
 function PublicView() {
   const [step, setStep] = useState(0);
-  const [form, setForm] = useState({ name:"", email:"", phone:"", address:"", city:"", panier:"M" });
+  const [form, setForm] = useState({ name:"", email:"", phone:"", address:"", city:"", secteur:"" });
   const [paying, setPaying] = useState(false);
   const up = (k,v) => setForm(f => ({...f, [k]:v}));
 
@@ -122,21 +122,27 @@ function PublicView() {
 
   if (step === 0) return React.createElement('div', null,
     React.createElement('div', { className:"hero" },
-      React.createElement('div', { className:"logo-icon", style:{ margin:"0 auto 1rem", width:56, height:56, borderRadius:16 } },
-        React.createElement(GlassIcon, { size:28 })
+      React.createElement('div', { className:"logo-icon", style:{ margin:"0 auto 1.25rem", width:64, height:64, borderRadius:16 } },
+        React.createElement(BoxIcon, { size:32 })
       ),
-      React.createElement('h1', { style:{ fontSize:26, fontWeight:700, marginBottom:10 } }, "Collecte du verre à domicile"),
-      React.createElement('p', { style:{ fontSize:15, color:"#555", maxWidth:340, margin:"0 auto 1.75rem", lineHeight:1.65 } },
-        "Sortez votre panier, on récupère vos bouteilles. Simple, régulier, écologique."
+      React.createElement('h1', { style:{ fontSize:24, fontWeight:800, marginBottom:6, color:"#1a5fa8" } }, "Récup-Verre"),
+      React.createElement('p', { style:{ fontSize:13, color:"#888", marginBottom:16, fontWeight:600, textTransform:"uppercase", letterSpacing:"0.5px" } }, "Verre Notre Avenir, Trions"),
+      React.createElement('p', { style:{ fontSize:15, color:"#444", maxWidth:340, margin:"0 auto 1.75rem", lineHeight:1.65 } },
+        "Déposez vos bouteilles dans votre caisse bleue 40L. On vient les récupérer chaque mois près de chez vous."
       ),
-      React.createElement('button', { className:"btn-primary", style:{ maxWidth:280, margin:"0 auto" }, onClick:()=>setStep(1) }, "S'abonner — 15€ / mois"),
-      React.createElement('p', { style:{ fontSize:12, color:"#999", marginTop:10 } }, "Résiliation libre · Panier fourni · Sans engagement")
+      React.createElement('div', { style:{ maxWidth:300, margin:"0 auto 1rem" } },
+        React.createElement('div', { className:"price-tag" }, "15€"),
+        React.createElement('p', { style:{ fontSize:12, color:"#666", marginTop:4 } }, "Achat unique de la caisse · Accès à la plateforme inclus"),
+        React.createElement('p', { style:{ fontSize:12, color:"#1a5fa8", fontWeight:600, marginTop:2 } }, "+ abonnement mensuel collecte (prix à venir)")
+      ),
+      React.createElement('button', { className:"btn-primary", style:{ maxWidth:280, margin:"1rem auto 0" }, onClick:()=>setStep(1) }, "Commander ma caisse →"),
+      React.createElement('p', { style:{ fontSize:12, color:"#999", marginTop:8 } }, "Collecte 1x/mois · Date communiquée par secteur")
     ),
     React.createElement('div', { className:"hero-features" },
       [
-        { emoji:"♻️", title:"Collecte régulière", desc:"1 ou 2 passages par semaine selon votre zone" },
-        { emoji:"📦", title:"Panier inclus", desc:"Livré chez vous dès votre inscription" },
-        { emoji:"🌱", title:"Impact mesuré", desc:"Kg collectés et CO₂ évité chaque mois" },
+        { emoji:"📦", title:"Caisse 40L bleue", desc:"Livrée chez vous après commande" },
+        { emoji:"♻️", title:"Collecte mensuelle", desc:"Date fixée par secteur en fin de mois" },
+        { emoji:"📱", title:"Suivi en ligne", desc:"Consultez vos collectes sur la plateforme" },
       ].map((f,i) => React.createElement('div', { key:i, className:"feature-card" },
         React.createElement('div', { style:{ fontSize:22, marginBottom:6 } }, f.emoji),
         React.createElement('div', { style:{ fontSize:12, fontWeight:700, marginBottom:4 } }, f.title),
@@ -150,6 +156,14 @@ function PublicView() {
       React.createElement('div', { className:"step-badge" }, "1"),
       React.createElement('span', { style:{ fontWeight:700, fontSize:15 } }, "Vos informations")
     ),
+    React.createElement('div', { className:"caisse-card" },
+      React.createElement('div', { className:"caisse-icon" }, React.createElement(BoxIcon, { size:28 })),
+      React.createElement('div', null,
+        React.createElement('div', { style:{ fontWeight:700, fontSize:14 } }, "Caisse de collecte 40L"),
+        React.createElement('div', { style:{ fontSize:12, color:"#555", marginTop:2 } }, "Couleur bleue · Livraison sous 48h"),
+        React.createElement('div', { style:{ fontSize:16, fontWeight:800, color:"#1a5fa8", marginTop:6 } }, "15,00€ (achat unique)")
+      )
+    ),
     ...["name","email","phone","address","city"].map(k =>
       React.createElement('div', { key:k },
         React.createElement('label', { className:"form-label" },
@@ -159,23 +173,18 @@ function PublicView() {
           className:"input-field",
           type: k==="email"?"email": k==="phone"?"tel":"text",
           value: form[k],
-          placeholder: {name:"Marie Dupont",email:"marie@exemple.fr",phone:"06 00 00 00 00",address:"12 rue des Lilas",city:"Nîmes"}[k],
+          placeholder: {name:"Marie Dupont",email:"marie@exemple.fr",phone:"06 00 00 00 00",address:"12 allée des Roses",city:"Toulouse"}[k],
           onChange: e => up(k, e.target.value)
         })
       )
     ),
     React.createElement('div', null,
-      React.createElement('label', { className:"form-label" }, "Taille du panier"),
-      React.createElement('div', { className:"panier-grid" },
-        paniers.map(p => React.createElement('div', {
-          key:p.id,
-          className:`step-card ${form.panier===p.id?"selected":"unselected"}`,
-          onClick: () => up("panier", p.id)
-        },
-          React.createElement('div', { style:{ fontWeight:700, fontSize:14 } }, p.label),
-          React.createElement('div', { style:{ fontSize:11, color:"#666", marginTop:2 } }, p.desc),
-          React.createElement('div', { style:{ fontSize:11, color:"#3B6D11", marginTop:4, fontWeight:600 } }, p.bottles)
-        ))
+      React.createElement('label', { className:"form-label" }, "Secteur / quartier"),
+      React.createElement('select', { className:"input-field", value:form.secteur, onChange:e=>up("secteur",e.target.value) },
+        React.createElement('option', { value:"" }, "Choisir votre secteur"),
+        React.createElement('option', { value:"A" }, "Zone A — Nord"),
+        React.createElement('option', { value:"B" }, "Zone B — Centre"),
+        React.createElement('option', { value:"C" }, "Zone C — Sud")
       )
     ),
     React.createElement('div', { style:{ display:"flex", gap:8 } },
@@ -189,18 +198,22 @@ function PublicView() {
       React.createElement('div', { className:"step-badge" }, "2"),
       React.createElement('span', { style:{ fontWeight:700, fontSize:15 } }, "Paiement")
     ),
-    React.createElement('div', { className:"card", style:{ background:"#f9faf8" } },
+    React.createElement('div', { className:"card", style:{ background:"#f5f9fd" } },
       React.createElement('div', { style:{ fontSize:13, fontWeight:700, marginBottom:10 } }, "Récapitulatif"),
       [
-        ["Abonnement collecte de verre", "15,00€"],
-        [`Panier ${{"S":"Petit","M":"Moyen","L":"Grand"}[form.panier]}`, "Offert"],
+        ["Caisse collecte 40L (bleue)", "15,00€"],
+        ["Livraison", "Offerte"],
+        ["Accès plateforme", "Inclus"],
       ].map(([k,v]) => React.createElement('div', { key:k, style:{ display:"flex", justifyContent:"space-between", fontSize:13, marginBottom:6 } },
         React.createElement('span', { style:{ color:"#555" } }, k),
-        React.createElement('span', { style:{ color: v==="Offert"?"#3B6D11":"#1a1a1a", fontWeight: v==="Offert"?600:400 } }, v)
+        React.createElement('span', { style:{ color: v!=="15,00€"?"#1a6a1a":"#1a1a1a", fontWeight: v!=="15,00€"?600:400 } }, v)
       )),
-      React.createElement('div', { style:{ borderTop:"1px solid #e8ede6", marginTop:10, paddingTop:10, display:"flex", justifyContent:"space-between", fontWeight:700, fontSize:15 } },
-        React.createElement('span', null, "Total / mois"),
-        React.createElement('span', null, "15,00€")
+      React.createElement('div', { style:{ borderTop:"1px solid #d6e4f0", marginTop:10, paddingTop:10, display:"flex", justifyContent:"space-between", fontWeight:800, fontSize:16 } },
+        React.createElement('span', null, "Total aujourd'hui"),
+        React.createElement('span', { style:{ color:"#1a5fa8" } }, "15,00€")
+      ),
+      React.createElement('div', { style:{ marginTop:8, fontSize:11, color:"#888", lineHeight:1.5 } },
+        "L'abonnement mensuel de collecte sera proposé ultérieurement."
       )
     ),
     React.createElement('div', null,
@@ -220,59 +233,57 @@ function PublicView() {
     React.createElement('div', { style:{ display:"flex", gap:8 } },
       React.createElement('button', { className:"btn-secondary", style:{ width:"auto", padding:"11px 18px" }, onClick:()=>setStep(1), disabled:paying }, "← Retour"),
       React.createElement('button', { className:"btn-primary", onClick:simulatePay, disabled:paying },
-        paying ? "Traitement en cours..." : "Payer 15€ / mois"
+        paying ? "Traitement en cours..." : "Payer 15€"
       )
     ),
-    React.createElement('p', { className:"footer-note" }, "🔒 Paiement sécurisé Stripe · Aucun frais caché · Résiliation en 1 clic")
+    React.createElement('p', { className:"footer-note" }, "🔒 Paiement sécurisé Stripe · Caisse livrée sous 48h")
   );
 
   if (step === 3) return React.createElement('div', { style:{ padding:"2.5rem 1.5rem", textAlign:"center" } },
     React.createElement('div', { className:"success-circle" }, React.createElement(CheckIcon)),
-    React.createElement('h2', { style:{ fontSize:20, fontWeight:700, marginBottom:10 } }, "Bienvenue dans VerRéco !"),
+    React.createElement('h2', { style:{ fontSize:20, fontWeight:800, marginBottom:10, color:"#1a5fa8" } }, "Commande confirmée !"),
     React.createElement('p', { style:{ fontSize:14, color:"#555", marginBottom:"1.5rem", lineHeight:1.65 } },
-      `Merci ${form.name || ""} ! Votre panier sera livré sous 48h. Un email de confirmation vous a été envoyé.`
+      `Merci ${form.name || ""} ! Votre caisse bleue 40L sera livrée sous 48h. Vous recevrez la date de collecte pour votre secteur en fin de mois.`
     ),
     React.createElement('div', { className:"card", style:{ textAlign:"left", marginBottom:"1.25rem" } },
-      React.createElement('div', { style:{ fontSize:12, fontWeight:700, color:"#666", marginBottom:10, textTransform:"uppercase", letterSpacing:"0.4px" } }, "Votre abonnement"),
+      React.createElement('div', { style:{ fontSize:12, fontWeight:700, color:"#666", marginBottom:10, textTransform:"uppercase", letterSpacing:"0.4px" } }, "Votre commande"),
       [
         ["Email", form.email || "—"],
-        ["Adresse", form.address ? `${form.address}, ${form.city}` : "—"],
-        ["Panier", `${{"S":"Petit","M":"Moyen","L":"Grand"}[form.panier]}`],
-        ["Premier débit", "Dans 30 jours"],
-        ["Montant mensuel", "15,00€"],
+        ["Adresse livraison", form.address ? `${form.address}, ${form.city}` : "—"],
+        ["Secteur", form.secteur ? `Zone ${form.secteur}` : "—"],
+        ["Caisse 40L bleue", "15,00€"],
+        ["Collecte", "1x par mois"],
       ].map(([k,v]) => React.createElement('div', { key:k, style:{ display:"flex", justifyContent:"space-between", fontSize:13, padding:"6px 0", borderBottom:"1px solid #f0f0f0" } },
         React.createElement('span', { style:{ color:"#666" } }, k),
         React.createElement('span', { style:{ fontWeight:500 } }, v)
       ))
     ),
-    React.createElement('button', { className:"btn-secondary", onClick:()=>{ setStep(0); setForm({ name:"", email:"", phone:"", address:"", city:"", panier:"M" }); } }, "Retour à l'accueil")
+    React.createElement('button', { className:"btn-secondary", onClick:()=>{ setStep(0); setForm({ name:"", email:"", phone:"", address:"", city:"", secteur:"" }); } }, "Retour à l'accueil")
   );
 }
 
 function AdminView({ activeTab }) {
   const [subs, setSubs] = useState(mockSubs);
   const [filterZone, setFilterZone] = useState("all");
-  const revenue = subs.filter(s=>s.status==="active").length * 15;
   const activeCount = subs.filter(s=>s.status==="active").length;
   const livresCount = subs.filter(s=>s.livre).length;
   const filteredSubs = filterZone === "all" ? subs : subs.filter(s=>s.zone===filterZone);
-
   const toggleLivre = (id) => setSubs(prev => prev.map(s => s.id===id ? {...s, livre:!s.livre} : s));
 
   if (activeTab === "dashboard") return React.createElement('div', { style:{ padding:"1.25rem" } },
     React.createElement('div', { style:{ fontSize:15, fontWeight:700, marginBottom:"1rem" } }, "Vue d'ensemble"),
     React.createElement('div', { style:{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:10, marginBottom:"1.25rem" } },
       [
-        { label:"Abonnés actifs", value: activeCount },
-        { label:"Revenus / mois", value: `${revenue}€` },
-        { label:"Paniers livrés", value: `${livresCount}/${subs.length}` },
+        { label:"Clients actifs", value: activeCount },
+        { label:"Caisses vendues", value: subs.length },
+        { label:"Caisses livrées", value: `${livresCount}/${subs.length}` },
         { label:"Zones couvertes", value: "3" },
       ].map((m,i) => React.createElement('div', { key:i, className:"metric" },
         React.createElement('div', { style:{ fontSize:11, color:"#666", marginBottom:4, fontWeight:600, textTransform:"uppercase", letterSpacing:"0.3px" } }, m.label),
-        React.createElement('div', { style:{ fontSize:24, fontWeight:700 } }, m.value)
+        React.createElement('div', { style:{ fontSize:24, fontWeight:700, color:"#1a5fa8" } }, m.value)
       ))
     ),
-    React.createElement('div', { style:{ fontSize:13, fontWeight:700, marginBottom:10, textTransform:"uppercase", letterSpacing:"0.3px", color:"#666" } }, "Tournées cette semaine"),
+    React.createElement('div', { style:{ fontSize:13, fontWeight:700, marginBottom:10, textTransform:"uppercase", letterSpacing:"0.3px", color:"#666" } }, "Collectes ce mois"),
     zones.map(z => {
       const count = subs.filter(s=>s.zone===z.id).length;
       return React.createElement('div', { key:z.id, className:"card", style:{ marginBottom:8, display:"flex", alignItems:"center", justifyContent:"space-between" } },
@@ -280,12 +291,12 @@ function AdminView({ activeTab }) {
           React.createElement('span', { className:`zone-pill ${z.color}` }, z.id),
           React.createElement('div', null,
             React.createElement('div', { style:{ fontSize:13, fontWeight:600 } }, z.label),
-            React.createElement('div', { style:{ fontSize:12, color:"#666" } }, `Collecte le ${z.day}`)
+            React.createElement('div', { style:{ fontSize:12, color:"#666" } }, z.day)
           )
         ),
         React.createElement('div', { style:{ textAlign:"right" } },
-          React.createElement('div', { style:{ fontSize:15, fontWeight:700 } }, `${count} foyers`),
-          React.createElement('div', { style:{ fontSize:12, color:"#3B6D11", fontWeight:600 } }, `${count * 15}€`)
+          React.createElement('div', { style:{ fontSize:15, fontWeight:700 } }, `${count} clients`),
+          React.createElement('div', { style:{ fontSize:12, color:"#1a5fa8", fontWeight:600 } }, `${count * 15}€ caisses`)
         )
       );
     })
@@ -293,7 +304,7 @@ function AdminView({ activeTab }) {
 
   if (activeTab === "abonnes") return React.createElement('div', { style:{ padding:"1.25rem" } },
     React.createElement('div', { style:{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"1rem" } },
-      React.createElement('div', { style:{ fontSize:15, fontWeight:700 } }, `${filteredSubs.length} abonnés`),
+      React.createElement('div', { style:{ fontSize:15, fontWeight:700 } }, `${filteredSubs.length} clients`),
       React.createElement('select', { className:"input-field", style:{ width:"auto" }, value:filterZone, onChange:e=>setFilterZone(e.target.value) },
         React.createElement('option', { value:"all" }, "Toutes les zones"),
         zones.map(z => React.createElement('option', { key:z.id, value:z.id }, `Zone ${z.id}`))
@@ -303,7 +314,7 @@ function AdminView({ activeTab }) {
       React.createElement('table', null,
         React.createElement('thead', null,
           React.createElement('tr', null,
-            ["Nom & adresse","Zone","Panier","Statut","Depuis","Panier livré"].map(h => React.createElement('th', { key:h }, h))
+            ["Nom & adresse","Zone","Statut","Depuis","Caisse livrée"].map(h => React.createElement('th', { key:h }, h))
           )
         ),
         React.createElement('tbody', null,
@@ -313,12 +324,11 @@ function AdminView({ activeTab }) {
               React.createElement('div', { style:{ fontSize:11, color:"#888" } }, `${s.address}, ${s.city}`)
             ),
             React.createElement('td', null, React.createElement('span', { className:`zone-pill zone-${s.zone}` }, s.zone)),
-            React.createElement('td', { style:{ fontWeight:600 } }, s.panier),
             React.createElement('td', null, React.createElement('span', { className:s.status==="active"?"badge-active":"badge-pending" }, s.status==="active"?"Actif":"En attente")),
             React.createElement('td', { style:{ color:"#888", fontSize:12 } }, s.joined),
             React.createElement('td', null,
               s.livre
-                ? React.createElement('button', { className:"btn-delivré", onClick:()=>toggleLivre(s.id), title:"Cliquer pour annuler" }, "✓ Livré")
+                ? React.createElement('button', { className:"btn-delivre", onClick:()=>toggleLivre(s.id), title:"Cliquer pour annuler" }, "✓ Livrée")
                 : React.createElement('button', { className:"btn-livrer", onClick:()=>toggleLivre(s.id) }, "Livrer")
             )
           ))
@@ -328,24 +338,27 @@ function AdminView({ activeTab }) {
   );
 
   if (activeTab === "tournees") return React.createElement('div', { style:{ padding:"1.25rem" } },
-    React.createElement('div', { style:{ fontSize:15, fontWeight:700, marginBottom:"1rem" } }, "Itinéraires de collecte"),
+    React.createElement('div', { style:{ fontSize:15, fontWeight:700, marginBottom:"1rem" } }, "Collectes du mois"),
+    React.createElement('div', { className:"card", style:{ background:"#fff8e6", border:"1px solid #FAC775", marginBottom:16 } },
+      React.createElement('div', { style:{ fontSize:12, color:"#854F0B", fontWeight:600 } }, "📅 Les dates de collecte sont à communiquer en fin de mois à chaque secteur.")
+    ),
     zones.map(z => React.createElement('div', { key:z.id, className:"card", style:{ marginBottom:12 } },
       React.createElement('div', { style:{ display:"flex", alignItems:"center", gap:10, marginBottom:12 } },
         React.createElement('span', { className:`zone-pill ${z.color}` }, z.id),
-        React.createElement('div', null,
+        React.createElement('div', { style:{ flex:1 } },
           React.createElement('div', { style:{ fontWeight:700, fontSize:14 } }, z.label),
-          React.createElement('div', { style:{ fontSize:12, color:"#666" } }, `Collecte le ${z.day}`)
+          React.createElement('div', { style:{ fontSize:12, color:"#888" } }, "1 collecte / mois")
         )
       ),
       subs.filter(s=>s.zone===z.id).map((s,i) => React.createElement('div', { key:s.id, className:"route-stop" },
         React.createElement('div', { className:"stop-num" }, i+1),
         React.createElement('div', null,
           React.createElement('div', { style:{ fontSize:13, fontWeight:600 } }, `${s.address}, ${s.city}`),
-          React.createElement('div', { style:{ fontSize:11, color:"#888" } }, `${s.name} · Panier ${s.panier}`)
+          React.createElement('div', { style:{ fontSize:11, color:"#888" } }, s.name)
         )
       )),
       subs.filter(s=>s.zone===z.id).length === 0 &&
-        React.createElement('div', { style:{ fontSize:13, color:"#aaa", textAlign:"center", padding:"0.5rem" } }, "Aucun abonné dans cette zone")
+        React.createElement('div', { style:{ fontSize:13, color:"#aaa", textAlign:"center", padding:"0.5rem" } }, "Aucun client dans cette zone")
     ))
   );
 }
@@ -356,12 +369,9 @@ function App() {
 
   return React.createElement('div', null,
     React.createElement('div', { className:"topbar" },
-      React.createElement('div', { className:"logo-name" },
-        React.createElement('div', { className:"logo-icon" }, React.createElement(GlassIcon, { size:17 })),
-        "VerRéco"
-      ),
+      React.createElement(Logo),
       React.createElement('div', { className:"tabs-bar" },
-        React.createElement('button', { className:`nav-tab ${mainView==="public"?"active":"inactive"}`, onClick:()=>setMainView("public") }, "Public"),
+        React.createElement('button', { className:`nav-tab ${mainView==="public"?"active":"inactive"}`, onClick:()=>setMainView("public") }, "Accueil"),
         React.createElement('button', { className:`nav-tab ${mainView==="admin"?"active":"inactive"}`, onClick:()=>setMainView("admin") }, "Admin ⚙️")
       )
     ),
@@ -369,7 +379,7 @@ function App() {
       ? React.createElement(PublicView)
       : React.createElement('div', null,
           React.createElement('div', { className:"sub-tabs" },
-            [["dashboard","Tableau de bord"],["abonnes","Abonnés"],["tournees","Tournées"]].map(([id,label]) =>
+            [["dashboard","Tableau de bord"],["abonnes","Clients"],["tournees","Collectes"]].map(([id,label]) =>
               React.createElement('button', { key:id, className:`nav-tab ${adminTab===id?"active":"inactive"}`, onClick:()=>setAdminTab(id) }, label)
             )
           ),

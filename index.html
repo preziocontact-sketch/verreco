@@ -136,7 +136,7 @@ function PublicView() {
         React.createElement('p', { style:{ fontSize:12, color:"#1a5fa8", fontWeight:600, marginTop:2 } }, "+ abonnement mensuel collecte (prix à venir)")
       ),
       React.createElement('button', { className:"btn-primary", style:{ maxWidth:280, margin:"1rem auto 0" }, onClick:()=>setStep(1) }, "Commander ma caisse →"),
-      React.createElement('p', { style:{ fontSize:12, color:"#999", marginTop:8 } }, "Collecte 1x/mois · Date communiquée par secteur")
+      React.createElement('p', { style:{ fontSize:12, color:"#999", marginTop:8 } }, "Caisse 15€ + 1er mois 10€ · Puis 15€/mois · Résiliation libre")
     ),
     React.createElement('div', { className:"hero-features" },
       [
@@ -202,18 +202,19 @@ function PublicView() {
       React.createElement('div', { style:{ fontSize:13, fontWeight:700, marginBottom:10 } }, "Récapitulatif"),
       [
         ["Caisse collecte 40L (bleue)", "15,00€"],
+        ["1er mois de collecte", "10,00€"],
         ["Livraison", "Offerte"],
         ["Accès plateforme", "Inclus"],
       ].map(([k,v]) => React.createElement('div', { key:k, style:{ display:"flex", justifyContent:"space-between", fontSize:13, marginBottom:6 } },
         React.createElement('span', { style:{ color:"#555" } }, k),
-        React.createElement('span', { style:{ color: v!=="15,00€"?"#1a6a1a":"#1a1a1a", fontWeight: v!=="15,00€"?600:400 } }, v)
+        React.createElement('span', { style:{ color: v==="Offerte"||v==="Inclus"?"#1a6a1a":"#1a1a1a", fontWeight: v==="Offerte"||v==="Inclus"?600:400 } }, v)
       )),
       React.createElement('div', { style:{ borderTop:"1px solid #d6e4f0", marginTop:10, paddingTop:10, display:"flex", justifyContent:"space-between", fontWeight:800, fontSize:16 } },
         React.createElement('span', null, "Total aujourd'hui"),
-        React.createElement('span', { style:{ color:"#1a5fa8" } }, "15,00€")
+        React.createElement('span', { style:{ color:"#1a5fa8" } }, "25,00€")
       ),
       React.createElement('div', { style:{ marginTop:8, fontSize:11, color:"#888", lineHeight:1.5 } },
-        "L'abonnement mensuel de collecte sera proposé ultérieurement."
+        "Puis 15,00€/mois à partir du 2ème mois · Résiliation libre"
       )
     ),
     React.createElement('div', null,
@@ -233,7 +234,7 @@ function PublicView() {
     React.createElement('div', { style:{ display:"flex", gap:8 } },
       React.createElement('button', { className:"btn-secondary", style:{ width:"auto", padding:"11px 18px" }, onClick:()=>setStep(1), disabled:paying }, "← Retour"),
       React.createElement('button', { className:"btn-primary", onClick:simulatePay, disabled:paying },
-        paying ? "Traitement en cours..." : "Payer 15€"
+        paying ? "Traitement en cours..." : "Payer 25€ (caisse + 1er mois)"
       )
     ),
     React.createElement('p', { className:"footer-note" }, "🔒 Paiement sécurisé Stripe · Caisse livrée sous 48h")
